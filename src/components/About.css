@@ -1,0 +1,74 @@
+.about-section {
+  padding-top: 200px;
+  padding-bottom: 200px;
+}
+
+.about-label {
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.about-heading {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  letter-spacing: -0.04em;
+  margin-bottom: 60px;
+}
+
+.about-statement {
+  font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+  line-height: 1.55;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  color: var(--text-primary);
+  max-width: 900px;
+  margin-bottom: 100px;
+}
+
+.about-statement .word {
+  display: inline-block;
+  will-change: opacity, transform;
+}
+
+.about-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.about-card {
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.card-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.card-value {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.card-sub {
+  font-size: 0.9rem;
+  color: #777777;
+}

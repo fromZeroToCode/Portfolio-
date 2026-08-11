@@ -1,0 +1,169 @@
+.experience-section {
+  position: relative;
+  overflow: hidden;
+  padding-top: 160px;
+}
+
+.exp-header {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 60px;
+}
+
+.exp-label {
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.exp-heading {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  letter-spacing: -0.04em;
+  margin-bottom: 12px;
+}
+
+.exp-subtext {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+/* ── Horizontal Track ── */
+.projects-track {
+  display: flex;
+  align-items: stretch;
+  gap: 40px;
+  width: max-content;
+  padding-bottom: 80px;
+}
+
+.projects-spacer {
+  width: 48px;
+  flex-shrink: 0;
+}
+
+/* ── Project Card ── */
+.project-card {
+  width: 560px;
+  flex-shrink: 0;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--accent, #ffffff);
+  opacity: 0.3;
+}
+
+.project-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.3);
+}
+
+.project-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.project-number {
+  font-family: var(--font-heading);
+  font-size: 4rem;
+  font-weight: 600;
+  color: var(--glass-border);
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.project-award {
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+}
+
+.project-card-body {
+  flex: 1;
+}
+
+.project-subtitle {
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #777777;
+  margin-bottom: 12px;
+}
+
+.project-title {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  letter-spacing: -0.04em;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.project-role {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.project-desc {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.project-card-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tech-tag {
+  font-size: 0.8rem;
+  padding: 6px 14px;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+}
+
+.project-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.project-btn {
+  padding: 10px 20px;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .project-card {
+    width: 85vw;
+    padding: 32px;
+  }
+}

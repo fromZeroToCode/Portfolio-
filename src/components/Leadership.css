@@ -1,0 +1,128 @@
+.leadership-section {
+  padding-top: 180px;
+  padding-bottom: 180px;
+}
+
+.lead-label {
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.lead-heading {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  letter-spacing: -0.04em;
+  margin-bottom: 80px;
+  color: var(--text-primary);
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 900px;
+}
+
+.timeline-entry {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.timeline-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  padding-top: 8px;
+}
+
+.timeline-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.03);
+  z-index: 2;
+  flex-shrink: 0;
+  color: var(--text-secondary);
+}
+
+.timeline-spine {
+  width: 1px;
+  flex: 1;
+  min-height: 40px;
+  background: var(--glass-border);
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.timeline-entry:last-child .timeline-spine {
+  display: none;
+}
+
+.timeline-right {
+  margin-bottom: 32px;
+  padding: 40px;
+  flex: 1;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.timeline-right:hover {
+  transform: translateX(8px);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.timeline-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.timeline-year {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.timeline-org {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+}
+
+.timeline-title {
+  font-size: 1.3rem;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.timeline-desc {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 600px) {
+  .timeline-entry {
+    gap: 16px;
+  }
+  .timeline-right {
+    padding: 24px;
+  }
+  .timeline-icon-wrap {
+    width: 36px;
+    height: 36px;
+  }
+}

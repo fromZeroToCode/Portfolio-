@@ -1,0 +1,33 @@
+/* Reset App-level styles */
+.portfolio-app {
+  width: 100%;
+}
+
+/* Smooth gradient section transitions */
+section, footer {
+  position: relative;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(0, 240, 255, 0.2);
+  color: var(--text-primary);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.2);
+}
