@@ -20,9 +20,15 @@ const Hero = () => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ delay: 0.3 });
 
-      tl.fromTo('.hero-name',
+      // Profile photo entrance
+      tl.fromTo('.hero-photo-wrapper',
+        { scale: 0.8, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 1.2, ease: 'power3.out' }
+      )
+      .fromTo('.hero-name',
         { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1.2, ease: 'power3.out' }
+        { y: 0, opacity: 1, duration: 1.2, ease: 'power3.out' },
+        '-=0.9'
       )
       .fromTo('.hero-subtitle',
         { y: 20, opacity: 0 },
@@ -34,11 +40,24 @@ const Hero = () => {
         { y: 0, opacity: 1, stagger: 0.12, duration: 0.7, ease: 'power3.out' },
         '-=0.5'
       )
+      .fromTo('.hero-stats',
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' },
+        '-=0.3'
+      )
       .fromTo('.hero-scroll',
         { opacity: 0 },
         { opacity: 1, duration: 1 },
         '-=0.2'
       );
+
+      // Ring glow pulse
+      gsap.to('.hero-photo-ring', {
+        '--ring-rotation': '360deg',
+        duration: 8,
+        repeat: -1,
+        ease: 'none',
+      });
 
       // Scroll parallax scale
       gsap.to(sectionRef.current, {
@@ -92,41 +111,56 @@ const Hero = () => {
       </div>
 
       <div className="hero-content">
-        <h1 className="hero-name">
-          Justin O. <br />
-          <span className="text-accent-blue">Del Rosario</span>
-        </h1>
-
-        <p className="hero-subtitle">
-          Frontend Developer building clean, interactive web experiences.
-        </p>
-
-        <div className="hero-cta-row">
-          <a href="#experience" className="btn btn-primary hero-cta">View Projects</a>
-          <a href="#contact" className="btn btn-outline hero-cta">Contact</a>
-          <a href="https://github.com/JustDev9" target="_blank" rel="noreferrer" className="hero-cta hero-icon-link">
-            <GithubIcon size={20} />
-          </a>
-          <a href="https://www.linkedin.com/in/justin-del-rosario-103a17427/" target="_blank" rel="noreferrer" className="hero-cta hero-icon-link">
-            <LinkedinIcon size={20} />
-          </a>
+        {/* Profile Photo */}
+        <div className="hero-photo-wrapper">
+          <div className="hero-photo-ring" />
+          <div className="hero-photo-glow" />
+          <img
+            src="/IMG_0321.JPG"
+            alt="Justin O. Del Rosario"
+            className="hero-photo"
+          />
         </div>
 
-        <div className="hero-stats">
-          <div className="hero-stat">
-            <span className="stat-number text-accent-green">3rd</span>
-            <span className="stat-label">Intl Hackathon</span>
+        {/* Text Content */}
+        <div className="hero-text">
+          <h1 className="hero-name">
+            Justin O. <br />
+            <span className="text-accent-blue">Del Rosario</span>
+          </h1>
+
+          <p className="hero-subtitle">
+            Frontend Developer building clean, interactive web experiences.
+          </p>
+
+          <div className="hero-cta-row">
+            <a href="#projects" className="btn btn-primary hero-cta">View Projects</a>
+            <a href="#contact" className="btn btn-outline hero-cta">Contact</a>
+            <a href="https://github.com/JustDev9" target="_blank" rel="noreferrer" className="hero-cta hero-icon-link">
+              <GithubIcon size={20} />
+            </a>
+            <a href="https://www.linkedin.com/in/justin-del-rosario-103a17427/" target="_blank" rel="noreferrer" className="hero-cta hero-icon-link">
+              <LinkedinIcon size={20} />
+            </a>
           </div>
-          <div className="hero-stat-divider" />
-          <div className="hero-stat">
-            <span className="stat-number text-accent-purple">1.3</span>
-            <span className="stat-label">GPA (Highest Honors)</span>
-          </div>
-          <div className="hero-stat-divider" />
-          <div className="hero-stat">
-            <span className="stat-number text-accent-pink">417+</span>
-            <span className="stat-label">Hackathon Devs</span>
-          </div>
+        </div>
+      </div>
+
+      {/* Stats below */}
+      <div className="hero-stats">
+        <div className="hero-stat">
+          <span className="stat-number text-accent-green">3rd</span>
+          <span className="stat-label">Intl Hackathon</span>
+        </div>
+        <div className="hero-stat-divider" />
+        <div className="hero-stat">
+          <span className="stat-number text-accent-purple">1.3</span>
+          <span className="stat-label">GPA (Highest Honors)</span>
+        </div>
+        <div className="hero-stat-divider" />
+        <div className="hero-stat">
+          <span className="stat-number text-accent-pink">417+</span>
+          <span className="stat-label">Hackathon Devs</span>
         </div>
       </div>
 
