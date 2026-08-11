@@ -1,11 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Navbar.css';
 import { GithubIcon, LinkedinIcon } from './SocialIcons';
-import { Mail } from 'lucide-react';
+import { Mail, Sun, Moon } from 'lucide-react';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [theme, setTheme] = useState('dark');
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme);
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -18,13 +32,20 @@ const Navbar = () => {
     { label: 'Work', href: '#projects' },
     { label: 'Skills', href: '#skills' },
     { label: 'Leadership', href: '#leadership' },
+    { label: 'Certs', href: '#certificates' },
     { label: 'Contact', href: '#contact' },
   ];
 
   return (
     <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <div className="navbar-inner">
-        <a href="#" className="navbar-logo">JDR</a>
+        <a href="#" className="navbar-logo" aria-label="JDR Home">
+          <img
+            src={theme === 'dark' ? '/JDR logo dark.png' : '/JDR logo light.png'}
+            alt="JDR"
+            className="navbar-logo-img"
+          />
+        </a>
 
         <button
           className={`navbar-hamburger ${menuOpen ? 'open' : ''}`}
@@ -52,6 +73,9 @@ const Navbar = () => {
           <a href="mailto:justin.delrosario.dev@gmail.com" aria-label="Email">
             <Mail size={18} />
           </a>
+          <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
         </div>
       </div>
     </nav>

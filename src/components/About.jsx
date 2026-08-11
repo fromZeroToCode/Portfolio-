@@ -13,36 +13,47 @@ const About = () => {
     const ctx = gsap.context(() => {
       // Reveal section heading
       gsap.fromTo('.about-label, .about-heading',
-        { y: 40, opacity: 0 },
+        { y: 50, opacity: 0 },
         {
-          y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: 'power3.out',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' }
+          y: 0, opacity: 1, stagger: 0.15, duration: 1.2, ease: 'power4.out',
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' }
         }
       );
 
-      // Word-by-word reveal for statement
+      // Word-by-word reveal for statement with more pop
       const words = textRef.current.querySelectorAll('.word');
       gsap.fromTo(words,
-        { opacity: 0.08, y: 10 },
+        { opacity: 0, y: 20, rotateX: 90 },
         {
-          opacity: 1, y: 0, stagger: 0.04,
+          opacity: 1, y: 0, rotateX: 0, stagger: 0.03,
+          duration: 0.8,
+          ease: 'back.out(1.7)',
           scrollTrigger: {
             trigger: textRef.current,
-            start: 'top 70%',
-            end: 'bottom 60%',
-            scrub: 1.5,
+            start: 'top 85%',
           }
         }
       );
 
-      // Cards
+      // Cards staggered pop up with continuous parallax
       gsap.fromTo('.about-card',
-        { y: 50, opacity: 0 },
+        { y: 60, opacity: 0, scale: 0.9 },
         {
-          y: 0, opacity: 1, stagger: 0.15, duration: 0.8, ease: 'power3.out',
-          scrollTrigger: { trigger: '.about-cards', start: 'top 80%' }
+          y: 0, opacity: 1, scale: 1, stagger: 0.1, duration: 0.8, ease: 'back.out(1.2)',
+          scrollTrigger: { trigger: '.about-cards', start: 'top 85%' }
         }
       );
+
+      gsap.to('.about-cards', {
+        y: -50,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.about-section',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1
+        }
+      });
     }, sectionRef);
 
     return () => ctx.revert();

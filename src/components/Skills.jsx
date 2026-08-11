@@ -56,17 +56,17 @@ const Skills = () => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo('.skills-label, .skills-heading',
-        { y: 40, opacity: 0 },
+        { y: 50, opacity: 0 },
         {
-          y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: 'power3.out',
+          y: 0, opacity: 1, stagger: 0.15, duration: 1.2, ease: 'power4.out',
           scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' }
         }
       );
 
       gsap.fromTo('.skill-cat',
-        { y: 60, opacity: 0 },
+        { y: 80, opacity: 0, scale: 0.85, rotationY: 15 },
         {
-          y: 0, opacity: 1, stagger: 0.12, duration: 0.8, ease: 'power3.out',
+          y: 0, opacity: 1, scale: 1, rotationY: 0, stagger: 0.1, duration: 1, ease: 'back.out(1.4)',
           scrollTrigger: { trigger: '.skills-grid', start: 'top 85%' }
         }
       );

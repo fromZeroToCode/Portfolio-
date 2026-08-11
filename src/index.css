@@ -2,11 +2,11 @@
   --font-heading: 'Outfit', sans-serif;
   --font-body: 'Inter', sans-serif;
 
-  /* Deep dark theme */
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #121212;
-  --text-primary: #fafafa;
-  --text-secondary: #a1a1aa;
+  /* Deep dark premium theme */
+  --bg-primary: #09090b;
+  --bg-secondary: #121214;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
   
   /* Solid vibrant accents (No Gradients) */
   --accent-blue: #3b82f6;
@@ -27,6 +27,25 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+:root[data-theme='light'] {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  
+  color-scheme: light;
+}
+
+[data-theme='light'] .text-gradient {
+  background: linear-gradient(to right, #0f172a, #64748b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 body {
@@ -87,8 +106,20 @@ html.lenis, html.lenis body {
   background: var(--glass-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  border-radius: 20px;
   border: 1px solid var(--glass-border);
-  border-radius: 12px;
+  position: relative;
+  z-index: 1;
+  box-shadow:
+    0 4px 24px -1px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+}
+
+.text-gradient {
+  background: linear-gradient(to right, #ffffff, #a1a1aa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .text-accent-blue { color: var(--accent-blue); }
@@ -101,7 +132,7 @@ html.lenis, html.lenis body {
 .section-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 140px 24px;
+  padding: 80px 24px;
 }
 
 .btn {
@@ -122,11 +153,14 @@ html.lenis, html.lenis body {
 .btn-primary {
   background: var(--text-primary);
   color: var(--bg-primary);
+  box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .btn-primary:hover {
-  background: #d4d4d8;
-  transform: translateY(-2px);
+  background: #ffffff;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 30px -10px rgba(255, 255, 255, 0.4);
 }
 
 .btn-outline {

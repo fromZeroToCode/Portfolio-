@@ -3,13 +3,14 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ChevronDown } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './SocialIcons';
+import FloatingAsset from './FloatingAsset';
 import './Hero.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
 // Particle configuration
 const particleColors = ['var(--accent-blue)', 'var(--accent-green)', 'var(--accent-pink)', 'var(--accent-orange)', 'var(--accent-yellow)', 'var(--accent-purple)'];
-const numParticles = 24;
+const numParticles = 12;
 
 const Hero = () => {
   const sectionRef = useRef(null);
@@ -76,10 +77,10 @@ const Hero = () => {
       particlesRef.current.forEach((el) => {
         if (!el) return;
         gsap.set(el, {
-          x: 'random(-40vw, 40vw)',
-          y: 'random(-40vh, 40vh)',
-          scale: 'random(0.4, 1.2)',
-          opacity: 'random(0.3, 0.7)',
+          x: 'random(-48vw, 48vw)',
+          y: 'random(-48vh, 48vh)',
+          scale: 'random(0.3, 0.8)',
+          opacity: 'random(0.1, 0.3)',
         });
         
         gsap.to(el, {
@@ -113,6 +114,13 @@ const Hero = () => {
       <div className="hero-content">
         {/* Profile Photo */}
         <div className="hero-photo-wrapper">
+          
+          {/* 3D Floating Assets */}
+          <FloatingAsset icon="🔮" size="4.5rem" x="-20%" y="10%" delay={0} duration={3.5} />
+          <FloatingAsset icon="🧊" size="4rem" x="90%" y="70%" delay={0.5} duration={4} />
+          <FloatingAsset icon="⭐" size="3.5rem" x="80%" y="-10%" delay={1} duration={3} />
+          <FloatingAsset icon="🚀" size="4rem" x="-10%" y="80%" delay={0.2} duration={4.5} />
+
           <div className="hero-photo-ring" />
           <div className="hero-photo-glow" />
           <img
@@ -124,13 +132,13 @@ const Hero = () => {
 
         {/* Text Content */}
         <div className="hero-text">
-          <h1 className="hero-name">
+          <h1 className="hero-name text-gradient">
             Justin O. <br />
-            <span className="text-accent-blue">Del Rosario</span>
+            Del Rosario
           </h1>
 
           <p className="hero-subtitle">
-            Frontend Developer building clean, interactive web experiences.
+            4th-year BSIT student at Gordon College — I design, I build, and I obsess over the details most people scroll past. From hackathon podiums to dean's list, I turn caffeine and code into things that actually work.
           </p>
 
           <div className="hero-cta-row">
@@ -149,8 +157,8 @@ const Hero = () => {
       {/* Stats below */}
       <div className="hero-stats">
         <div className="hero-stat">
-          <span className="stat-number text-accent-green">3rd</span>
-          <span className="stat-label">Intl Hackathon</span>
+          <span className="stat-number text-accent-green">5+</span>
+          <span className="stat-label">Projects Shipped</span>
         </div>
         <div className="hero-stat-divider" />
         <div className="hero-stat">
@@ -159,8 +167,8 @@ const Hero = () => {
         </div>
         <div className="hero-stat-divider" />
         <div className="hero-stat">
-          <span className="stat-number text-accent-pink">417+</span>
-          <span className="stat-label">Hackathon Devs</span>
+          <span className="stat-number text-accent-pink">3+</span>
+          <span className="stat-label">Years Continuous Learning</span>
         </div>
       </div>
 

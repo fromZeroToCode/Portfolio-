@@ -27,12 +27,23 @@
 }
 
 .navbar-logo {
-  font-family: var(--font-heading);
-  font-size: 1.4rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  color: var(--text-primary);
+  display: flex;
+  align-items: center;
   text-decoration: none;
+  flex-shrink: 0;
+}
+
+.navbar-logo-img {
+  height: 44px;
+  width: auto;
+  display: block;
+  transition: filter 0.35s ease, transform 0.35s ease;
+  filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.4));
+}
+
+.navbar-logo:hover .navbar-logo-img {
+  filter: drop-shadow(0 0 16px rgba(139, 92, 246, 0.75)) drop-shadow(0 0 32px rgba(71, 191, 255, 0.35));
+  transform: scale(1.05);
 }
 
 .navbar-links {
@@ -88,6 +99,25 @@
 
 .navbar-social a:hover {
   color: var(--text-primary);
+  transform: translateY(-2px);
+}
+
+.theme-toggle {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  color: var(--text-primary);
+  background: var(--glass-border);
   transform: translateY(-2px);
 }
 

@@ -1,0 +1,13 @@
+.floating-asset {
+  position: absolute;
+  pointer-events: none;
+  z-index: 5;
+  user-select: none;
+  /* Premium 3D emoji drop shadow */
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.4)) drop-shadow(0 8px 10px rgba(0, 0, 0, 0.2));
+  will-change: transform;
+}
+
+[data-theme='light'] .floating-asset {
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.15)) drop-shadow(0 8px 10px rgba(0, 0, 0, 0.08));
+}

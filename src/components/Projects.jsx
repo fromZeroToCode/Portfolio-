@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ExternalLink, Play, ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { ExternalLink, ChevronLeft, ChevronRight, X, Play } from 'lucide-react';
 import { GithubIcon } from './SocialIcons';
+import FloatingAsset from './FloatingAsset';
 import './Projects.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -12,23 +13,30 @@ const projects = [
     id: 'meowderer',
     number: '01',
     title: 'Meowderer',
-    subtitle: 'HackTheKitty International Hackathon',
-    role: 'Frontend Developer',
-    award: '🏆 3rd Place — $500 Prize',
-    accentColor: 'var(--accent-yellow)',
-    desc: 'A community-driven cat tracking Progressive Web App with an interactive map, CatDex, cat profiles, community voting, chat, and sticker creation — built in a hackathon with 417 participants and 129 submissions.',
+    subtitle: 'HackTheKitty World Cat Domination Day 2026',
+    role: 'Frontend Developer & Editor',
+    award: '🏆 3rd Place · International Hackathon',
+    accentColor: 'var(--accent-purple)',
+    gradientClass: 'gradient-purple',
+    desc: 'A community-driven cat tracking Progressive Web App built in 72 hours for the HackTheKitty World Cat Domination Day 2026 international hackathon. Features an interactive map, CatDex, cat profiles, community voting, chat, and sticker creation — earning 3rd place among global submissions.',
     tech: ['React', 'Next.js', 'Supabase', 'PWA', 'TypeScript'],
     link: 'https://meowderer.vercel.app/auth',
-    github: 'https://github.com/JustDev9',
-    youtubeId: 'Gr7Qi0mB7ME',
+    github: 'https://github.com/pvrylle/Meowderer',
+    youtube: 'https://youtu.be/Gr7Qi0mB7ME?si=0TDLEKQAdEIqKJQx',
     images: [
       '/Meowderer/Home page.png',
       '/Meowderer/Cat wonderrer.png',
+      '/Meowderer/Cat cards 1.jpg',
       '/Meowderer/Community cats.png',
+      '/Meowderer/Cat cards.jpg',
       '/Meowderer/Community.png',
+      '/Meowderer/Cat cards2.jpg',
       '/Meowderer/Profile.png',
+      '/Meowderer/Cat cards 3.png',
       '/Meowderer/maps.png',
+      '/Meowderer/Cat cards 4.png',
       '/Meowderer/Mission.png',
+      '/Meowderer/Cat cards 5.png',
       '/Meowderer/Missions.png',
     ],
   },
@@ -36,12 +44,13 @@ const projects = [
     id: 'sia',
     number: '02',
     title: 'GC Smart Check',
-    subtitle: 'Web-Based System for SIA',
-    role: 'Project Manager',
-    award: '🎓 School Application System',
+    subtitle: 'Web & Mobile OMR Scoring System',
+    role: 'Project Manager & Designer',
+    award: '🎓 Gordon College CEAS · Faculty Tool',
     accentColor: 'var(--accent-green)',
-    desc: 'Designed and developed a mobile OMR scanning and instant scoring system built for Gordon College faculty. Features include auto-scoring, export to Excel, item analysis, and role-based dashboards for teachers and students.',
-    tech: ['React', 'JavaScript', 'Web App', 'OMR Scanning', 'Analytics'],
+    gradientClass: 'gradient-green',
+    desc: 'As Project Manager, I led design and oversaw development of a web and mobile OMR scanning system built for Gordon College CEAS faculty. The system enables instant scoring, exports results to Excel, provides item analysis, and features role-based dashboards for teachers and students — built by my team, designed by me.',
+    tech: ['React', 'JavaScript', 'Mobile App', 'OMR Scanning', 'Analytics'],
     link: 'https://web-based-for-sia.vercel.app/',
     images: [
       '/Sia/Screenshot 2026-08-11 171554.png',
@@ -56,12 +65,13 @@ const projects = [
     id: 'sandyfeet',
     number: '03',
     title: 'Sandyfeet Reserve',
-    subtitle: 'Full Stack Capstone Project',
-    role: 'Full Stack Developer',
-    award: '🎓 Academic Capstone',
+    subtitle: 'Beach Resort Booking Platform · Capstone',
+    role: 'Frontend Developer',
+    award: '🎓 Academic Capstone · Live Deployment',
     accentColor: 'var(--accent-blue)',
-    desc: 'A web-based camp reservation and event booking platform for Sandyfeet Liwliwa Camp. Includes multi-room booking, event management, dynamic inventory, and a full admin dashboard. Developed in close collaboration with the beneficiary.',
-    tech: ['PHP', 'MySQL', 'JavaScript', 'HTML/CSS'],
+    gradientClass: 'gradient-ocean',
+    desc: 'A web-based camp reservation and event booking platform for Sandyfeet Liwliwa Camp. I built the frontend using Next.js with Firebase and Firestore powering the backend. Features include multi-room booking, event management, dynamic inventory, and a full admin dashboard — developed in close collaboration with the beneficiary.',
+    tech: ['Next.js', 'Firebase', 'Firestore', 'JavaScript', 'HTML/CSS'],
     link: 'https://sandyfeetresort.vercel.app',
     images: [
       '/Sandyfeet/Screenshot 2026-08-11 185531.png',
@@ -72,108 +82,95 @@ const projects = [
   },
 ];
 
-/* ── Image Gallery sub-component ── */
-const ImageGallery = ({ images, projectTitle }) => {
-  const [current, setCurrent] = useState(0);
-  const [isLightbox, setIsLightbox] = useState(false);
-  const trackRef = useRef(null);
+/* ── Infinite Marquee Gallery ── */
+const InfiniteMarquee = ({ images, projectTitle, accentColor }) => {
+  const [lightboxIndex, setLightboxIndex] = useState(null);
+  const numImages = images.length;
 
-  const goTo = useCallback((idx) => {
-    const newIdx = (idx + images.length) % images.length;
-    setCurrent(newIdx);
-  }, [images.length]);
+  // Split images into two columns alternately
+  const col1 = images.filter((_, i) => i % 2 === 0);
+  const col2 = images.filter((_, i) => i % 2 !== 0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!isLightbox) goTo(current + 1);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [current, isLightbox, goTo]);
+  // Triple for seamless CSS loop
+  const col1Loop = [...col1, ...col1, ...col1];
+  const col2Loop = [...col2, ...col2, ...col2];
+
+  // Speed: ~4s per image
+  const speed1 = col1.length * 4;
+  const speed2 = col2.length * 4;
+
+  const handleCardClick = (img) => {
+    const idx = images.indexOf(img);
+    if (idx !== -1) setLightboxIndex(idx);
+  };
 
   return (
     <>
-      <div className="gallery">
-        <div className="gallery-viewport">
-          <div
-            ref={trackRef}
-            className="gallery-track"
-            style={{ transform: `translateX(-${current * 100}%)` }}
-          >
-            {images.map((img, i) => (
-              <div key={i} className="gallery-slide" onClick={() => setIsLightbox(true)}>
-                <img src={img} alt={`${projectTitle} screenshot ${i + 1}`} loading="lazy" />
+      <div className="marquee-container" style={{ '--accent': accentColor }}>
+        {/* Column A — scrolls up */}
+        <div className="marquee-column">
+          <div className="marquee-track" style={{ animationDuration: `${speed1}s` }}>
+            {col1Loop.map((img, i) => (
+              <div
+                key={`a-${i}`}
+                className="marquee-card"
+                onClick={() => handleCardClick(img)}
+              >
+                <img src={img} alt={`${projectTitle} ${i + 1}`} loading="lazy" draggable="false" />
               </div>
             ))}
           </div>
-
-          <button className="gallery-arrow gallery-arrow-left" onClick={() => goTo(current - 1)} aria-label="Previous image">
-            <ChevronLeft size={20} />
-          </button>
-          <button className="gallery-arrow gallery-arrow-right" onClick={() => goTo(current + 1)} aria-label="Next image">
-            <ChevronRight size={20} />
-          </button>
         </div>
 
-        <div className="gallery-dots">
-          {images.map((_, i) => (
-            <button
-              key={i}
-              className={`gallery-dot ${i === current ? 'active' : ''}`}
-              onClick={() => goTo(i)}
-              aria-label={`Go to image ${i + 1}`}
-            />
-          ))}
+        {/* Column B — scrolls down */}
+        <div className="marquee-column">
+          <div className="marquee-track reverse" style={{ animationDuration: `${speed2}s` }}>
+            {col2Loop.map((img, i) => (
+              <div
+                key={`b-${i}`}
+                className="marquee-card"
+                onClick={() => handleCardClick(img)}
+              >
+                <img src={img} alt={`${projectTitle} ${i + 1}`} loading="lazy" draggable="false" />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Lightbox */}
-      {isLightbox && (
-        <div className="lightbox" onClick={() => setIsLightbox(false)}>
-          <button className="lightbox-close" onClick={() => setIsLightbox(false)} aria-label="Close lightbox">
+      {/* Lightbox Modal */}
+      {lightboxIndex !== null && (
+        <div className="lightbox" onClick={() => setLightboxIndex(null)}>
+          <button className="lightbox-close" onClick={() => setLightboxIndex(null)} aria-label="Close lightbox">
             <X size={24} />
           </button>
           <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
-            <img src={images[current]} alt={`${projectTitle} full view`} />
-            <button className="gallery-arrow gallery-arrow-left lightbox-arrow" onClick={() => goTo(current - 1)} aria-label="Previous image">
+            <img src={images[lightboxIndex]} alt={`${projectTitle} full view`} />
+            <button className="gallery-arrow gallery-arrow-left lightbox-arrow" onClick={() => setLightboxIndex((lightboxIndex - 1 + numImages) % numImages)} aria-label="Previous image">
               <ChevronLeft size={28} />
             </button>
-            <button className="gallery-arrow gallery-arrow-right lightbox-arrow" onClick={() => goTo(current + 1)} aria-label="Next image">
+            <button className="gallery-arrow gallery-arrow-right lightbox-arrow" onClick={() => setLightboxIndex((lightboxIndex + 1) % numImages)} aria-label="Next image">
               <ChevronRight size={28} />
             </button>
           </div>
-          <div className="lightbox-counter">{current + 1} / {images.length}</div>
+          <div className="lightbox-counter">{lightboxIndex + 1} / {numImages}</div>
         </div>
       )}
     </>
   );
 };
 
+
 /* ── YouTube Embed sub-component ── */
 const YouTubeEmbed = ({ videoId }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-
   return (
     <div className="video-container">
-      {!isPlaying ? (
-        <div className="video-thumbnail" onClick={() => setIsPlaying(true)}>
-          <img
-            src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
-            alt="Video thumbnail"
-            loading="lazy"
-          />
-          <div className="video-play-btn">
-            <Play size={32} fill="currentColor" />
-          </div>
-          <div className="video-label">Watch Demo</div>
-        </div>
-      ) : (
-        <iframe
-          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`}
-          title="Project demo video"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
-      )}
+      <iframe
+        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&rel=0&modestbranding=1&controls=0`}
+        title="Project demo video"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
     </div>
   );
 };
@@ -219,17 +216,37 @@ const Projects = () => {
         {projects.map((project, index) => (
           <article
             key={project.id}
-            className={`project-showcase ${index % 2 === 1 ? 'reversed' : ''}`}
+            className={`project-showcase ${index % 2 === 1 ? 'reversed' : ''} ${project.gradientClass || ''}`}
             style={{ '--project-accent': project.accentColor }}
           >
+
             <div className="showcase-inner">
               {/* Visual Side */}
-              <div className="showcase-visual">
-                <ImageGallery images={project.images} projectTitle={project.title} />
-                {project.youtubeId && (
-                  <YouTubeEmbed videoId={project.youtubeId} />
-                )}
-              </div>
+            <div className="showcase-visual">
+              {project.id === 'meowderer' && (
+                <>
+                  <FloatingAsset icon="🐈" size="4rem" x="-10%" y="10%" delay={0} duration={3} />
+                  <FloatingAsset icon="🐾" size="3rem" x="90%" y="80%" delay={0.5} duration={4} />
+                  <FloatingAsset icon="🧶" size="3.5rem" x="80%" y="-10%" delay={1} duration={3.5} />
+                </>
+              )}
+              {project.id === 'sia' && (
+                <>
+                  <FloatingAsset icon="📝" size="4rem" x="-5%" y="15%" delay={0.2} duration={3.2} />
+                  <FloatingAsset icon="📊" size="3.5rem" x="85%" y="75%" delay={0.6} duration={4} />
+                  <FloatingAsset icon="💯" size="3rem" x="75%" y="-5%" delay={0.8} duration={3.8} />
+                </>
+              )}
+              {project.id === 'sandyfeet' && (
+                <>
+                  <FloatingAsset icon="🏖️" size="4.5rem" x="-10%" y="20%" delay={0} duration={4} />
+                  <FloatingAsset icon="🥥" size="3.5rem" x="80%" y="80%" delay={0.4} duration={3.5} />
+                  <FloatingAsset icon="🌊" size="4rem" x="70%" y="-10%" delay={0.9} duration={4.2} />
+                </>
+              )}
+              <div className={`showcase-bg ${project.gradientClass}`} />
+              <InfiniteMarquee images={project.images} projectTitle={project.title} accentColor={project.accentColor} />
+            </div>
 
               {/* Info Side */}
               <div className="showcase-info">
@@ -264,9 +281,23 @@ const Projects = () => {
                       <GithubIcon size={14} /> GitHub
                     </a>
                   )}
+                  {project.youtube && (
+                    <a href={project.youtube} target="_blank" rel="noreferrer" className="btn btn-outline showcase-btn">
+                      <Play size={14} /> YouTube
+                    </a>
+                  )}
                 </div>
+
+
               </div>
             </div>
+
+            {/* Standard YouTube below visual for non-video-bg projects */}
+            {project.youtubeId && !project.videoBg && (
+              <div className="showcase-youtube-standalone section-container">
+                <YouTubeEmbed videoId={project.youtubeId} />
+              </div>
+            )}
           </article>
         ))}
       </div>
@@ -277,24 +308,24 @@ const Projects = () => {
         <div className="secondary-grid">
           <div className="secondary-card glass-panel" style={{ '--accent': 'var(--accent-pink)' }}>
             <span className="secondary-award" style={{ color: 'var(--accent-pink)' }}>⚡ Hackathon Participant</span>
-            <h4 className="secondary-title">Build Beyond</h4>
+            <h4 className="secondary-title">Build &amp; Beyond</h4>
             <p className="secondary-role">Frontend Developer · Devpost Hackathon</p>
-            <p className="secondary-desc">Collaborated with a cross-functional team to design and build a functional product submission for the Build Beyond hackathon, discovered through Devpost.</p>
+            <p className="secondary-desc">We joined the Build and Beyond hackathon on Devpost — a cross-team sprint where I helped design and ship a full product end-to-end under tight time constraints.</p>
             <div className="showcase-tech">
               <span className="tech-tag">Frontend Development</span>
               <span className="tech-tag">Team Collaboration</span>
-              <span className="tech-tag">UI/UX</span>
+              <span className="tech-tag">UI/UX Design</span>
             </div>
           </div>
           <div className="secondary-card glass-panel" style={{ '--accent': 'var(--accent-green)' }}>
             <span className="secondary-award" style={{ color: 'var(--accent-green)' }}>🔒 Under NDA</span>
             <h4 className="secondary-title">Confidential Project</h4>
-            <p className="secondary-role">Software Developer · NDA Software Project</p>
-            <p className="secondary-desc">Contributed to a private software product involving feature development, testing, and debugging across multiple release cycles.</p>
+            <p className="secondary-role">UI/UX Designer · Mobile App Prototyping</p>
+            <p className="secondary-desc">I designed a mobile application for a company, crafting high-fidelity UI/UX prototypes as NDA-bound deliverables. Focused on user flows, interaction design, and delivering production-ready screen specs.</p>
             <div className="showcase-tech">
-              <span className="tech-tag">Software Development</span>
-              <span className="tech-tag">Feature Implementation</span>
-              <span className="tech-tag">QA & Testing</span>
+              <span className="tech-tag">UI/UX Design</span>
+              <span className="tech-tag">Mobile Prototyping</span>
+              <span className="tech-tag">Figma</span>
             </div>
           </div>
         </div>

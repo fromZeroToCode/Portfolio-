@@ -4,15 +4,11 @@ import Lenis from 'lenis';
 const SmoothScroll = ({ children }) => {
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: 'vertical',
-      gestureDirection: 'vertical',
-      smooth: true,
-      mouseMultiplier: 1,
-      smoothTouch: false,
-      touchMultiplier: 2,
-      infinite: false,
+      lerp: 0.08, // Physics-based smoothing for fluid momentum
+      wheelMultiplier: 1,
+      smoothWheel: true,
+      normalizeWheel: true, // Normalizes scroll speed across different trackpads/mice
+      smoothTouch: false, // Keep native touch scrolling for mobile
     });
 
     function raf(time) {

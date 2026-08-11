@@ -31,6 +31,7 @@
 .about-statement .word {
   display: inline-block;
   will-change: opacity, transform;
+  margin-right: 0.3em;
 }
 
 .about-cards {
